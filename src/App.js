@@ -2,6 +2,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import { useEffect, useState } from "react";
 import Table from "./Table";
+import axios from "axios";
 
 function App() {
   const [headers, setHeaders] = useState([]);
@@ -13,6 +14,12 @@ function App() {
     }
   }, [tableData]);
 
+  function loadData() {
+    axios.get("http://localhost:8080/api/spark/read/taxidata").then((data) => {
+      setTableData(data.data);
+    });
+  }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -21,15 +28,7 @@ function App() {
       </header>
 
       <h1>Display table data</h1>
-      <button
-        className="display-button"
-        onClick={() =>
-          setTableData([
-            { id: 1, rider: "Aditya" },
-            { id: 2, rider: "Dheer" },
-          ])
-        }
-      >
+      <button className="display-button" onClick={() => loadData()}>
         {" "}
         Display Data
       </button>
