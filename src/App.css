@@ -155,3 +155,54 @@ h1 {
     text-align: center;
   }
 }
+
+.form-element {
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 30px;
+}
+
+.form-element > label {
+  color: #ffffff;
+  text-align: left;
+  width: 30%;
+}
+
+.form-element > input {
+  width: 70%;
+}
+
+.js-center {
+  justify-content: center;
+  display: flex;
+  margin-top: 30px;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+li a:hover {
+  background-color: #111;
+}
+
+.active {
+  background: #4fc3a1;
+}

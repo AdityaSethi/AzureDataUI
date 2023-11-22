@@ -1,41 +1,42 @@
 import logo from "./logo.svg";
 import "./App.css";
-import { useEffect, useState } from "react";
-import Table from "./Table";
-import axios from "axios";
+import { NavLink, Route, Routes } from "react-router-dom";
+import CreateSession from "./CreateSession";
+import ReadData from "./ReadData";
+import { useState } from "react";
+import { Context } from "./Context";
 
 function App() {
-  const [headers, setHeaders] = useState([]);
-  const [tableData, setTableData] = useState([]);
-
-  useEffect(() => {
-    if (tableData.length > 0) {
-      setHeaders(Object.keys(tableData[0]));
-    }
-  }, [tableData]);
-
-  function loadData() {
-    axios.get("http://localhost:8080/api/spark/read/taxidata").then((data) => {
-      setTableData(data.data);
-    });
-  }
-
+  const [uuid, setUUID] = useState("");
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <div>Azure Data UI</div>
-      </header>
+    <Context.Provider value={[uuid, setUUID]}>
+      <div className="App">
+        <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          <div>Azure Data UI</div>
+        </header>
+        <h1>Welcome to Azure Data UI</h1>
+        <nav>
+          <ul>
+            <li>
+              <NavLink activeclassname="active" to="/AzureDataUI">
+                Create Session
+              </NavLink>
+            </li>
+            <li>
+              <NavLink activeclassname="active" to="/ReadData">
+                Read Data
+              </NavLink>
+            </li>
+          </ul>
+        </nav>
 
-      <h1>Display table data</h1>
-      <button className="display-button" onClick={() => loadData()}>
-        {" "}
-        Display Data
-      </button>
-      <div className="table">
-        <Table headers={headers} data={tableData}></Table>
+        <Routes>
+          <Route path="/AzureDataUI" element={<CreateSession />} />
+          <Route path="/ReadData" element={<ReadData />} />
+        </Routes>
       </div>
-    </div>
+    </Context.Provider>
   );
 }
 
